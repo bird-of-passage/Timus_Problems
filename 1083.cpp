@@ -15,7 +15,7 @@ int main()
         if (c == '\n')
             break;
         if (c == '!')
-            ++k;
+            k++;
     }
 
     int fact = 1;
