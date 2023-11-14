@@ -1,41 +1,60 @@
-#include <cstdio>
-#include <cstring>
-
+#include<bits/stdc++.h>
 using namespace std;
 
-#define MAX_N 164000
+const int N = 1000000;
+bool sieve[N+1];
+vector<int>ds;
+void createSieve(){
+    // int cnt = 0;
+    for(int i=2; i<=N; i++){
+        sieve[i] = true;
+    }
 
-bool isPrime[MAX_N];
-int ans[15000], sz;
-
-int main()
-{
-    memset(isPrime, true, sizeof(isPrime));
-    isPrime[0] = isPrime[1] = false;
-
-    ans[0] = 2;
-    sz = 1;
-
-    for (int i = 3; i < MAX_N && sz < 15000; i += 2)
-    {
-        if (isPrime[i])
-        {
-            ans[sz] = i;
-            ++sz;
-            if (i < MAX_N / i)
-                for (int j = i * i; j < MAX_N; j += i)
-                    isPrime[j] = false;
+    for(int i=2; i*i<=N; i++){
+        if(sieve[i] == true){
+            for(int j = i*i ; j<=N; j+=i){
+                sieve[j] = false;
+            }
         }
     }
 
-    int T, ind;
-    scanf("%d", &T);
-
-    while (T--)
-    {
-        scanf("%d", &ind);
-        printf("%d\n", ans[ind - 1]);
+    for(int i=2; i<=N; i++){
+        if(sieve[i] == true){
+            ds.push_back(i);
+            // cnt++;
+        }
     }
 
-    return 0;
+    // cout<<cnt<<endl;
+    
+
+    //5 * 10^6
+    // int limit = 5*1000000;
+    // int cnt = 0;
+    // int size = 1;
+    // for(int i = 2;;i++){
+    //     if(sieve[i] == true){
+    //         cnt++;
+    //     }
+    //     if(cnt == limit){
+    //         size = i;
+    //         break;
+    //     }
+    // }
+    // cout<<size<<endl;
 }
+
+
+
+int main(){
+    
+    createSieve();
+    
+    int t; cin>>t;
+    while(t--){
+        int n; cin>>n;
+        cout<<ds[n-1]<<endl;
+    }
+    
+}
+
